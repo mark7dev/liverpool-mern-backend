@@ -21,6 +21,7 @@ const Controller = {
                 });
             });
     },
+
     create: (request, response) => {
         Product
             .find()
@@ -40,20 +41,43 @@ const Controller = {
                     response
                         .status(201)
                         .json({
-                        message: 'Product created successfully.'
+                            message: 'Product created successfully.'
                         });
                     })
                     .catch(error => {
                     response
                         .status(500)
                         .json({
-                        error
+                            error
                         })
                     });
                 
             })
             .catch(error => console.log(error));
     },
+
+    read: (request, response) => {
+        Product
+            .findById(request.params.Id)
+            .exec()
+            .then(product => {
+            response
+                .status(200)          
+                .json({
+                    product
+                });
+            })
+            .catch(error => {
+            res
+                .status(500)
+                .json({
+                error
+                });
+            });
+    }
+
+    
+    
 }
 
 module.exports = Controller;
