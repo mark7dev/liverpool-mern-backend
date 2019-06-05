@@ -87,7 +87,28 @@ const Controller = {
                     message: 'Product was deleted.'
                 });
             });
-    }
+    },
+
+    update:(request,response) =>{
+        Product
+            .findByIdAndUpdate(
+                request.params.Id, 
+                {$set: request.body}, 
+                function (error, product) {
+                    if (error) return next(error);
+                    response.send('Product udpated.');
+                }
+            );
+            // .findByIdAndUpdate(req.params.id)
+            // .exec()
+            // .then(()=>{
+            //     res
+            //         .status(200)
+            //         .json({
+            //             message:'User settings modify correctly'
+            //         })
+            // })
+        },
 
     
     
