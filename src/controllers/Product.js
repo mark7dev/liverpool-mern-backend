@@ -74,6 +74,19 @@ const Controller = {
                 error
                 });
             });
+    },
+
+    delete: (request, response) => {
+        Product
+            .findByIdAndRemove(request.params.Id)
+            .exec()
+            .then(() => {
+                response
+                .status(200)
+                .json({
+                    message: 'Product was deleted.'
+                });
+            });
     }
 
     
