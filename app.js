@@ -23,12 +23,34 @@ ODM.connection.on('connected', () => {
     console.log(JSON.stringify(formatedMessage, null, 2));
 });
 
+
 app.use(logger('dev'));
 app.use('/static', express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({
     extended: true
 }));
+
+
+app.use((request, response, next) => {
+    response.header('Access-Control-Allow-Origin', '*');
+    response.header(
+      'Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+    );
+  
+    next();
+});
+
+
+app.options('*', (request, response, next) => {
+    response.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+    response.send(200);
+    next();
+});
+
+
+app.use('/apilivercrud/v1', api);
 
 
 app.listen(PORT, () => {

@@ -38,18 +38,19 @@ const Controller = {
                 newProduct
                     .save()
                     .then(saved => {
-                    response
-                        .status(201)
-                        .json({
-                            message: 'Product created successfully.'
-                        });
+                        response
+                            .status(201)
+                            .json({
+                                message: 'Product created successfully.',
+                                newProduct
+                            });
                     })
                     .catch(error => {
-                    response
-                        .status(500)
-                        .json({
-                            error
-                        })
+                        response
+                            .status(500)
+                            .json({
+                                error
+                            })
                     });
                 
             })
@@ -61,18 +62,18 @@ const Controller = {
             .findById(request.params.Id)
             .exec()
             .then(product => {
-            response
-                .status(200)          
-                .json({
-                    product
-                });
+                response
+                    .status(200)          
+                    .json({
+                        product
+                    });
             })
             .catch(error => {
-            res
-                .status(500)
-                .json({
-                error
-                });
+                response
+                    .status(500)
+                    .json({
+                        error
+                    });
             });
     },
 
@@ -82,10 +83,10 @@ const Controller = {
             .exec()
             .then(() => {
                 response
-                .status(200)
-                .json({
-                    message: 'Product was deleted.'
-                });
+                    .status(200)
+                    .json({
+                        message: 'Product was deleted.'
+                    });
             });
     },
 
@@ -93,21 +94,19 @@ const Controller = {
         Product
             .findByIdAndUpdate(
                 request.params.Id, 
-                {$set: request.body}, 
+                {$set: request.body},
+                {new: true}, 
                 function (error, product) {
-                    if (error) return next(error);
-                    response.send('Product udpated.');
+                    if (error) {
+                        return next(error);
+                    }
+                    response
+                        .status(200) 
+                        .json({
+                            product
+                        });
                 }
             );
-            // .findByIdAndUpdate(req.params.id)
-            // .exec()
-            // .then(()=>{
-            //     res
-            //         .status(200)
-            //         .json({
-            //             message:'User settings modify correctly'
-            //         })
-            // })
         },
 
     
