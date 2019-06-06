@@ -1,0 +1,45 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(#AFB42B, white);
+    font-family: 'Patrick Hand SC', cursive;
+}
+
+.center {
+    text-align: center;
+    position: relative;
+    transform: translateY(-50%);
+    top: 50%;
+}
+
+h1 {
+    font-weight: 500;
+}
+
+p {
+    font-size: 14px;
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+hr {
+    border: 0;
+    height: 2px;
+    background-color: #DDD;
+    margin: 20px 0;
+}
+
+code {
+    font-family: 'Menlo';
+    font-size: 12px;
+    color: gray;
+}

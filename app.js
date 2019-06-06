@@ -24,6 +24,11 @@ ODM.connection.on('connected', () => {
 });
 
 
+app.set('views', './src/views');
+app.set('view engine', 'pug');
+app.set('json spaces', 2);
+
+
 app.use(logger('dev'));
 app.use('/static', express.static('public'));
 app.use(express.json({limit: '50mb'}));
@@ -31,6 +36,14 @@ app.use(express.urlencoded({
     limit: '50mb',
     extended: true
 }));
+
+
+app.get('/', (request, response) => {
+    response.render('main', {
+      title: 'Liverpool CRUD',
+      subtitle: 'Liverpool CRUD challenge'
+    });
+});
 
 
 app.use((request, response, next) => {
@@ -53,11 +66,39 @@ app.options('*', (request, response, next) => {
 
 app.use('/apilivercrud/v1', api);
 
+app.use((request, response, next) => {
+    const ERROR_404 = {
+      error: {
+        message: 'The requested resource is not defined.',
+        status: 404
+      }
+    };
+  
+    next(ERROR_404);
+});
+
+app.use((error, request, response, next) => {
+    const body = error.error;
+    const STATUS_CODE = body.status || 500;
+    const ERROR_505 = body.message || '500. Internal Server Error :(';
+  
+    const formatedMessage = JSON.stringify(error, null, 2);
+  
+    response
+      .status(STATUS_CODE)
+      .json({
+        error: {
+          message: ERROR_505,
+          status: STATUS_CODE
+        }
+      });
+  
+    console.log(chalk.red(formatedMessage));
+});
+
 
 app.listen(PORT, () => {
     const formatedMessage = chalk.green(`Express server running on PORT: ${ PORT }`);
   
     console.log(formatedMessage);
 });
-
-app.use('/apilivercrud/v1', api);
