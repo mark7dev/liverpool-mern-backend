@@ -15,4 +15,4 @@ Open [http://localhost:3001](http://localhost:3001) to view it in the browser.
 
 
 ### Deployment
-[https://liverpool-crud-challenge.herokuapp.com] (https://liverpool-crud-challenge.herokuapp.com)
+[https://liverpool-crud-challenge.herokuapp.com](https://liverpool-crud-challenge.herokuapp.com)
